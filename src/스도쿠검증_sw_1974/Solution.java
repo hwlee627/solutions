@@ -25,7 +25,7 @@
 //System.out.println(var);		       				   // 문자열 1개 출력하는 예제
 //System.out.println(AB);		       				     // long 변수 1개 출력하는 예제
 /////////////////////////////////////////////////////////////////////////////////////////////
-package 스도쿠검증;
+package 스도쿠검증_sw_1974;
 
 import java.util.Scanner;
 import java.io.FileInputStream;

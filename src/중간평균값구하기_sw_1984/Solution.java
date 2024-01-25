@@ -25,7 +25,7 @@
 //System.out.println(var);		       				   // 문자열 1개 출력하는 예제
 //System.out.println(AB);		       				     // long 변수 1개 출력하는 예제
 /////////////////////////////////////////////////////////////////////////////////////////////
-package 중간평균값구하기;
+package 중간평균값구하기_sw_1984;
 
 import java.util.Scanner;
 import java.io.FileInputStream;

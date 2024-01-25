@@ -1,4 +1,4 @@
-package 오목판정_sw_11315;
+package 최빈수구하기_sw_1204;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -33,71 +33,31 @@ class Solution
 
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
-			int[] dr = {-1,1,0,0,-1,-1,1,1};
-			int[] dc = {0,0,-1,1,-1,1,-1,1};
-			int cnt = 1;
-			int N = sc.nextInt();
-			char[][] omok = new char[N][N];
-			char[] check = new char[N];
-			//오목판 생성
-			if(N>=5 && N<=20) {
-				for(int r = 0; r<N; r++) {
-					String a = sc.next();
-					char[] arr = new char[N];
-					for(int i = 0; i<N; i++) {
-						arr[i]= a.charAt(i);
-					}
-					for(int c = 0; c<N; c++) {
-						omok[r][c] = arr[c];
-					}	
-				}
-				
-				//순회
-				for(int r = 0; r<N; r++) {
-					for(int c = 0; c<N; c++) {
-						
-							for(int d=0; d<8; d++) {
-								cnt=1;
-								for(int l =0; l<N; l++) {
-									int nr = r+dr[d]*l;
-									int nc = c+dc[d]*l;
-									
-									if((nr < 0 || nc < 0)||(nr >= N || nc >=N)) {
-										check[l]=' ';
-									}else {
-										check[l]=omok[nr][nc];
-									}
-								}
-								for(int i = 0; i<N; i++) {
-									if(i!=N-1) {
-										if(check[i] == 'o') {
-											if(check[i] == check[i+1]) {
-												cnt++;
-											}
-											
-										}
-									}
-								}
-								if(cnt >= 5) {
-									break;
-								}
-							}
-							if(cnt>= 5) {
-								break;
-							}
-					}
-					if(cnt>= 5) {
-						break;
-					}
-				}
-				if(cnt >= 5) {
-					System.out.println("#"+test_case+" "+ "YES");
-				}else {
-					System.out.println("#"+test_case+" "+ "NO");
-				}
-			}else {
-				
+			sc.next();
+			int max = 0;
+			int index = 0;
+			int[] score = new int[1000];
+			int[] cnt = new int[101];
+			for(int i =0; i<1000; i++) {
+				score[i] = sc.nextInt();
 			}
+			
+			for(int i =0; i<1000; i++) {
+				cnt[score[i]]++;
+			}
+			
+			for(int i =0; i<cnt.length; i++) {
+				if(max<cnt[i]) {
+					max = cnt[i];
+					index = i;
+				}
+					if(max == cnt[i]) {
+						max = cnt[i];
+						index = i;
+				}
+			}
+			System.out.println("#"+test_case+" "+index);
+			
 		}
 	}
 }

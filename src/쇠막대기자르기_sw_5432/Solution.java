@@ -1,4 +1,7 @@
-package 진기의최고급붕어빵_sw;
+package 쇠막대기자르기_sw_5432;
+
+import java.util.ArrayList;
+import java.util.List;
 /////////////////////////////////////////////////////////////////////////////////////////////
 //기본 제공코드는 임의 수정해도 관계 없습니다. 단, 입출력 포맷 주의
 //아래 표준 입출력 예제 필요시 참고하세요.
@@ -35,8 +38,7 @@ import java.io.FileInputStream;
 */
 class Solution
 {
-public static void main(String args[]) throws Exception
-{
+	public static void main(String args[]) throws Exception{
 /*
 아래의 메소드 호출은 앞으로 표준 입력(키보드) 대신 input.txt 파일로부터 읽어오겠다는 의미의 코드입니다.
 여러분이 작성한 코드를 테스트 할 때, 편의를 위해서 input.txt에 입력을 저장한 후,
@@ -46,21 +48,36 @@ public static void main(String args[]) throws Exception
 */
 //System.setIn(new FileInputStream("res/input.txt"));
 
-/*
-표준입력 System.in 으로부터 스캐너를 만들어 데이터를 읽어옵니다.
-*/
-Scanner sc = new Scanner(System.in);
-int T;
-T=sc.nextInt();
-/*
-여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
-*/
+		/*
+		표준입력 System.in 으로부터 스캐너를 만들어 데이터를 읽어옵니다.
+		 */
+		Scanner sc = new Scanner(System.in);
+		int T;
+		T=sc.nextInt();
+		/*
+		여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
+		 */
 
-for(int test_case = 1; test_case <= T; test_case++)
-{
-	int pCnt = sc.nextInt();
-	int[] buyer = new int[pCnt];
-	
-}
-}
+		for(int test_case = 1; test_case <= T; test_case++){
+			String stick = sc.next();
+			stick = stick.replace("()", "o");
+			System.out.println(stick);
+			int left = 0, sum = 0;
+			for(int i = 0; i<stick.length(); i++) {
+				if(stick.charAt(i)=='(') {
+					left++;
+				}else if(stick.charAt(i)==')') {
+					left--;
+					sum += 1;
+				}else {
+					sum+=left;
+				}
+				
+			}
+			System.out.println("#"+test_case+" "+sum);
+			
+		}
+		
+		
+	}
 }
