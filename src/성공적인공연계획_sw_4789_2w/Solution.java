@@ -1,4 +1,4 @@
-package 성공적인공연계획_sw_4789;
+package 성공적인공연계획_sw_4789_2w;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package 영준이의카드카운팅_sw_4047;
+package 영준이의카드카운팅_sw_4047_2w;
 
 import java.util.Arrays;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package 농작물수확하기_sw_2805;
+package 농작물수확하기_sw_2805_2w;
 
 import java.util.Arrays;
 import java.util.Scanner;

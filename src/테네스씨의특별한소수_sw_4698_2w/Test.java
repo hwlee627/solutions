@@ -1,4 +1,4 @@
-package 테네스씨의특별한소수_sw_4698;
+package 테네스씨의특별한소수_sw_4698_2w;
 
 import java.util.Arrays;
 

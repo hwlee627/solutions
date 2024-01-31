@@ -1,4 +1,4 @@
-package 수의새로운연산_sw_1493;
+package 수의새로운연산_sw_1493_2w;
 
 import java.util.Arrays;
 import java.util.Scanner;

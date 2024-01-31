@@ -1,4 +1,4 @@
-package 퍼펙트셔플_sw_3499;
+package 퍼펙트셔플_sw_3499_2w;
 
 import java.util.Arrays;
 import java.util.Scanner;
