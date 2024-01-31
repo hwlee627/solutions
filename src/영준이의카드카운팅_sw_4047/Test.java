@@ -12,6 +12,9 @@ public class Test {
 		
 		int d = Integer.parseInt(c[1]+c[2]);
 		System.out.println(d);
+		
+		int f = 0 % 2;
+		System.out.println(f);
 	}
 
 }
