@@ -12,18 +12,6 @@ class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
-		/*
-		   아래의 메소드 호출은 앞으로 표준 입력(키보드) 대신 input.txt 파일로부터 읽어오겠다는 의미의 코드입니다.
-		   여러분이 작성한 코드를 테스트 할 때, 편의를 위해서 input.txt에 입력을 저장한 후,
-		   이 코드를 프로그램의 처음 부분에 추가하면 이후 입력을 수행할 때 표준 입력 대신 파일로부터 입력을 받아올 수 있습니다.
-		   따라서 테스트를 수행할 때에는 아래 주석을 지우고 이 메소드를 사용하셔도 좋습니다.
-		   단, 채점을 위해 코드를 제출하실 때에는 반드시 이 메소드를 지우거나 주석 처리 하셔야 합니다.
-		 */
-		//System.setIn(new FileInputStream("res/input.txt"));
-
-		/*
-		   표준입력 System.in 으로부터 스캐너를 만들어 데이터를 읽어옵니다.
-		 */
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T=sc.nextInt();
@@ -34,14 +22,20 @@ class Solution
 			int N = sc.nextInt();
 			int M = sc.nextInt();
 			int[][] flies = new int [N][N];
+			//탐색용 배열 선언
+			//MxM칸을 모두 탐색해야 하기 때문에 배열 크기도 MxM으로 지정
 			int[] mr = new int[M*M];
 			int[] mc = new int[M*M];
+			
 			int cnt = 0;
 			int num = 0;
 			int sum = 0;
 			int max = 0;
-			//MxM 칸 탐색용 배열 생성
 			
+			//MxM 칸 탐색용 배열 생성
+			//목표 = M이 3이라면,
+			//{0,0,0,1,1,1,2,2,2}가 되도록
+			//같은 숫자 반복은 M회, 횟수 끝나면 숫자가 1씩 상승
 			for(int i = 0; i<M*M; i++) {
 				mr[i] = num;
 				cnt++;
@@ -51,13 +45,14 @@ class Solution
 				}
 				
 			}
+			//목표 M=3이라면,
+			//{0,1,2,0,1,2,0,1,2}가 되도록
+			//index번호인 i를 M으로 나눈 나머지의 반복
 			for(int i = 0; i<M*M; i++) {
 				mc[i] = i%M;
 			}
-			
-			
-//			System.out.println(Arrays.toString(mr));
-//			System.out.println(Arrays.toString(mc));
+			//결과
+
 			//배열생성
 			for(int r = 0; r<N; r++) {
 				for(int c = 0; c<N; c++) {
@@ -65,13 +60,8 @@ class Solution
 				}
 			}
 			
-			//출력
-//			for(int r = 0; r<N; r++) {
-//				for(int c = 0; c<N; c++) {
-//					System.out.printf("%3d", flies[r][c]);
-//				}
-//				System.out.println();
-//			}
+			//만든 배열과 탐색 배열로 탐색하여 탐색한 칸들의 총 합을 구하고
+			//위에서 선언한 max 변수에 넣어 최대값을 구함
 			
 			for(int r =0; r<=N-M; r++) {
 				for(int c = 0; c<=N-M; c++) {
@@ -79,9 +69,13 @@ class Solution
 					for(int d = 0; d<M*M; d++) {
 						int nr = r+mr[d];
 						int nc = c+mc[d];
+						//탐색 후 좌표값들을 sum변수로 합쳐줌
 						sum += flies[nr][nc];
 						
 					}
+					//max라는 변수에 합한 결과값들을 넣을 때
+					//sum이 더 크면 max를 갱신하게 하여
+					//sum으로 나온 값들 중 가장 큰 값이 최종적으로 남도록 함
 					if(sum > max) {
 						max = sum;
 					}
