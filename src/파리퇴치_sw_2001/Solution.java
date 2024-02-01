@@ -59,7 +59,6 @@ class Solution
 					flies[r][c] = sc.nextInt();
 				}
 			}
-			
 			//만든 배열과 탐색 배열로 탐색하여 탐색한 칸들의 총 합을 구하고
 			//위에서 선언한 max 변수에 넣어 최대값을 구함
 			
