@@ -34,7 +34,7 @@ public class Main {
 			// 방청객이 예상한 개수를 담음
 			expect[i-1] = end - start + 1;
 		}
-		System.out.println(Arrays.toString(cake));
+//		System.out.println(Arrays.toString(cake));
 		//cake배열을 순회 돌려서
 		//방청객이 적은 번호의 숫자를 세면
 		//그 방청객이 실제로 받은 케잌의 개수를 알 수 있음
