@@ -60,6 +60,7 @@ class Solution
 					}
 				}
 			}
+			
 			int[] calStack = makeIntStack(postfix.length());
 			int sum = 0;
 			for(int i = 0; i<postfix.length(); i++) {
