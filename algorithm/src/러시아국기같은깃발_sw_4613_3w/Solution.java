@@ -1,4 +1,4 @@
-package SWEA_4613_러시아국기같은깃발;
+package 러시아국기같은깃발_sw_4613_3w;
 
 import java.util.Scanner;
 import java.io.FileInputStream;

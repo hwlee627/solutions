@@ -1,4 +1,4 @@
-package SWEA_19866_비밀4;
+package 비밀4_sw_19866_3w;
 
 import java.util.Arrays;
 import java.io.FileInputStream;
