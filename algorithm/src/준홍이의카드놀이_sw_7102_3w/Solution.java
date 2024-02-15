@@ -62,7 +62,6 @@ class Solution
 					System.out.print(" "+i+"\n");
 				}
 			}
-
 		}
 	}
 }
