@@ -80,7 +80,9 @@ public class Solution {
 
 			int p = 1;
 			int ch = p * 2;
-
+			if (ch + 1 <= heapSize && heap[ch] < heap[ch + 1]) {
+				ch++;
+			}
 			// 리프로 가면 자식이 없을 수 있음
 			// ch가 heapSize 이하인지 확인
 			while (ch <= heapSize && heap[p] < heap[ch]) {
@@ -90,7 +92,7 @@ public class Solution {
 				p = ch;
 				ch = p * 2;
 				
-				if (heap[ch] < heap[ch + 1]) {
+				if(ch + 1 <= heapSize && heap[ch] < heap[ch + 1]) {
 					ch++;
 				}
 			}
