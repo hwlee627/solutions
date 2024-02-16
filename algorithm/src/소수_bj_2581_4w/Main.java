@@ -1,4 +1,4 @@
-package 퇴사_bj_14501_4w;
+package 소수_bj_2581_4w;
 
 import java.util.Arrays;
 import java.util.Scanner;
