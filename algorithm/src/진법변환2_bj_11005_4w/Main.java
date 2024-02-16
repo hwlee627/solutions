@@ -1,4 +1,4 @@
-package 퇴사_bj_14501_4w;
+package 진법변환2_bj_11005_4w;
 
 import java.util.Arrays;
 import java.util.Scanner;
