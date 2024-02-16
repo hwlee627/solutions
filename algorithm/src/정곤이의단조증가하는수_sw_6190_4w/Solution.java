@@ -24,27 +24,35 @@ class Solution {
 			int max = 0;
 			for (int i = 0; i < numCnt - 1; i++) {
 				for (int j = i + 1; j < numCnt; j++) {
+					//boolean으로 단조인지 아닌지 판별
 					boolean check = true;
+					//수 두개를 고른 후 num 변수에 넣어
 					int num = numArr[i] * numArr[j];
-//					System.out.println("num : "+num);
+
+					//String으로 변환(크기 비교 하기 위함)
 					String str = String.valueOf(num);
-//					System.out.println("str : "+str);
+					
+					//숫자가 한 자리 수 이면 단조를 판별 할 수 없으므로 제외시킴
 					if (str.length() != 1) {
 						for (int k = 0; k < str.length(); k++) {
 							if (k + 1 < str.length()) {
+								//한 인덱스값을 기준으로 뒤의 숫자와 비교
+								//커지지않고 작아지는 부분이 있다면 판별 boolean을 false로 설정
 								if (str.charAt(k) > str.charAt(k + 1)) {
-//									System.out.println("num : " + num+" 브레이크");
+
 									check = false;
 									break;
 								} else if (str.charAt(k) <= str.charAt(k + 1)) {
-//									System.out.println("num : "+ num+ "elif");
+
 								}
 							}
 
 						}
+						//숫자가 한 자리수 인 경우 false
 					} else {
 						check = false;
 					}
+					//단조인 수들 중 최대값 구하기
 					if(check) {
 						num = Integer.parseInt(str);
 						if (max < num) {

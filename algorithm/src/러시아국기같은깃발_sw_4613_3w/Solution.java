@@ -23,6 +23,7 @@ class Solution
 			int M = sc.nextInt();
 			sc.nextLine();
 			
+			//국기 색 배열 생성
 			char[][] flag = new char[N][M];
 			int colored = 0;
 			int min = Integer.MAX_VALUE;
@@ -32,27 +33,10 @@ class Solution
 					flag[r][c] = str.charAt(c);
 				}
 			}
-//			for(int r=0; r<N; r++) {
-//				for(int c=0; c<M; c++) {
-//					System.out.print(flag[r][c]);
-//				}
-//				System.out.println();
-//			}
-			
-//			for(int c = 0; c<M; c++) {
-//				if(flag[0][c] != 'W') {
-//					flag[0][c] = 'W';
-//					colored++;
-//				}
-//			}
-//			
-//			for(int c = 0; c<M; c++) {
-//				if(flag[N-1][c]!='R') {
-//					flag[N-1][c] = 'R';
-//					colored++;
-//				}
-//			}
 			int cnt = 0;
+			//완전탐색 돌리기
+			//흰색, 파란색, 빨간색이 몇 줄이 될 수 있는지 경우의 수를 구해서
+			//그 경우의 수에 따라 색이 몇번 바뀌는지 체크
 			for(int w = 1; w<=N-2; w++) {
 				for(int b = 1; b<N-w; b++) {
 					int red = N-w-b;
@@ -80,6 +64,7 @@ class Solution
 							}
 						}
 					}
+					//체크한 횟수 중에서 최소값을 구하기
 					if(min > cnt) {
 						min = cnt;
 					}
