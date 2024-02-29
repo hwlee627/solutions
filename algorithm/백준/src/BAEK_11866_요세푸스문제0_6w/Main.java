@@ -1,4 +1,4 @@
-package SWEA_1158_요세푸스문제_3w;
+package BAEK_11866_요세푸스문제0_6w;
 
 import java.util.Arrays;
 import java.util.Scanner;
