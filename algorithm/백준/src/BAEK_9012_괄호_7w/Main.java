@@ -14,7 +14,7 @@ public class Main {
 		for(int i = 1; i<=N; i++) {
 			String str = sc.nextLine();
 			char[] vps = new char[str.length()];
-			System.out.println(str);
+//			System.out.println(str);
 			for(int j = 0; j<vps.length; j++) {
 				vps[j] = str.charAt(j);
 			}
