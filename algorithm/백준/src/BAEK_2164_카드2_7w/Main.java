@@ -17,7 +17,7 @@ public class Main {
 		for(int i = 1; i<=N; i++) {
 			q.add(i);
 		}
-		
+		//
 		while(q.size()>1) {
 			q.poll();
 			int tmp = q.poll();
