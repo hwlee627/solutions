@@ -17,7 +17,7 @@ public class Main {
 			int roomNum = 0;
 			
 			roomNum = (int)Math.ceil((double)N/H);
-			if(N % H == 0) {
+			if(N % H == 0) {//이걸 안하면 6층이 0층이 되어버림
 				
 				floor = H;
 			}else {

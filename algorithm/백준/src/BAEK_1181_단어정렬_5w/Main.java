@@ -32,6 +32,8 @@ public class Main {
 //		newList.sort(new LengthCompare());
 		
 		
+		
+		
 		newList.sort(new LengthCompare().thenComparing(Comparator.naturalOrder()));
 		
 		for(String words : newList) {

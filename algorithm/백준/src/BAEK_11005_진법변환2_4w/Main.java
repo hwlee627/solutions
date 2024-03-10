@@ -30,6 +30,7 @@ public class Main {
 				nums[i] = 'a';
 				break;
 			}
+					
 			
 		}
 //		System.out.println(Arrays.toString(nums));

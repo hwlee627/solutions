@@ -68,9 +68,9 @@ public class Solution {
 									}else {
 										if(tmpCnt>=X) {
 											tmpCnt = 1;
-											cnt = 0;
+											cnt = 1;
 											int tmp = j;
-											i = i+X-1; // 활주로는 겹치면 안되므로 활주로 길이만큼 index 추가
+											i = i+X; // 활주로는 겹치면 안되므로 활주로 길이만큼 index 추가
 											if(i == N-1) {
 												if(i != j) {
 													isOk = false;
