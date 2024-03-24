@@ -43,8 +43,8 @@ public class Main {
 			}
 			
 			//이분 탐색 범위 설정
-//			System.out.println(max);
-//			System.out.println(min);
+			System.out.println(max);
+			System.out.println(min);
 			//현재 값으로 구한 count보다 N이 크면 더 작은 범위에서 다시 탐색해야 한다
 			if(count < N) {
 				max = mid;
