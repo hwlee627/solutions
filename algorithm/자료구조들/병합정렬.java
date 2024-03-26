@@ -1,4 +1,4 @@
-package 자료구조;
+
 
 import java.util.Arrays;
 
