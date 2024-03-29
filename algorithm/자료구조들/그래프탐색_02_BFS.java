@@ -6,7 +6,6 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class 그래프탐색_02_BFS {
-
 	static int N;
 	static List<Integer>[] adj;
 	static boolean[] visited;
