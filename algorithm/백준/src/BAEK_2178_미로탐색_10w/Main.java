@@ -84,7 +84,7 @@ public class Main {
 					if(!visited[nr][nc]) {
 						Target tar2 = new Target(nr, nc, tar.cnt+1);
 						q.add(tar2);
-
+						
 						visited[nr][nc] = true;
 						if(tar2.r == N-1 && tar2.c == M-1) {
 							System.out.println(tar2.cnt);

@@ -42,9 +42,9 @@ public class 위상정렬_queue {
 				if(adj[curr][i] == 1) {
 					degree[i]--;
 					//adj[curr][i] = 0 ; 이건 간선을 실제로 삭제
-				if(degree[i] == 0) {
+					if(degree[i] == 0) {
 					q.add(i);
-				}
+					}
 				
 				}
 				
