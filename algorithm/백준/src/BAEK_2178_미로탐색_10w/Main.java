@@ -72,24 +72,22 @@ public class Main {
 		while(!q.isEmpty()) {
 			Target tar = q.poll();
 			
-			System.out.println(tar.r + " : "+tar.c);
-			int times = 0;
+//			System.out.println(tar.r + " : "+tar.c);
+			
 			//4방탐색
 			for(int d = 0; d<4; d++) {
 				int nr = dr[d] + tar.r;
 				int nc = dc[d] + tar.c;
 				
-				if((nr >= 0 && nr < N)&& (nc >= 0 && nc < M)) {
+				if((nr >= 0 && nr < N) && (nc >= 0 && nc < M)) {
 					
 					if(!visited[nr][nc]) {
-						Target tar2 = new Target(nr, nc, cnt++);
+						Target tar2 = new Target(nr, nc, tar.cnt+1);
 						q.add(tar2);
-						
-						times++;
-						System.out.println(times);
+
 						visited[nr][nc] = true;
 						if(tar2.r == N-1 && tar2.c == M-1) {
-							System.out.println(cnt);
+							System.out.println(tar2.cnt);
 						}
 					}
 				}
