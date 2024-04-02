@@ -6,7 +6,7 @@ public class Permutation {
 	private static int n, m;  // n = 돌릴 수열의 길이  m = 돌리면서 담아줄 수열의 길이
 	private static char[] arr; // 돌리면서 담아줄 수열
 	private static char[] nums; // 돌릴 수열
-	private static boolean[] visited; // 중복 방지 boolean 배열
+	private static boolean[] visited; 	// 중복 방지 boolean 배열
 	public static void main(String[] args) {
 		n = 4;
 		nums = new char[]{'a', 'b', 'c', 'd'};
