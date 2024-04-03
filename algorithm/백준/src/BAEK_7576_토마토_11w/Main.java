@@ -1,4 +1,4 @@
-package BAEK_7576_토마토;
+package BAEK_7576_토마토_11w;
 
 import java.util.LinkedList;
 import java.util.Queue;
