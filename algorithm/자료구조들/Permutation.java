@@ -12,7 +12,7 @@ public class Permutation {
 		nums = new char[]{'a', 'b', 'c', 'd'};
 		System.out.println(Arrays.toString(nums));
 		visited = new boolean[n+1]; // 0은 없으니까
-		for(int i = 1; i<=n; i++) {
+		for(int i = 1; i<=6; i++) {
 			m = i;
 			arr = new char[m];
 			permutation(0); // 순열 조지기, 매개변수는 담아줄 수열의 idx.
@@ -27,12 +27,12 @@ public class Permutation {
 		}
 		
 		for(int i = 1; i<=n; i++) {
-			if(!visited[i]) {		//중복을 허용하는 순열이라면, visited 로직을 제거하면 된다 !
-				visited[i] = true;
+//			if(!visited[i]) {		//중복을 허용하는 순열이라면, visited 로직을 제거하면 된다 !
+//				visited[i] = true;
 				arr[cnt] = nums[i-1];
 				permutation(cnt + 1);
-				visited[i] = false; // 다시 false를 해주어야 하는 이유: 순열이라서 ! 순서가 바뀌면 다른 집합이므로 다시 탐색해주어야 하기 때문
-			}
+//				visited[i] = false; // 다시 false를 해주어야 하는 이유: 순열이라서 ! 순서가 바뀌면 다른 집합이므로 다시 탐색해주어야 하기 때문
+//			}
 		}
 		
 	}
