@@ -8,9 +8,9 @@ public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int T = sc.nextInt();
+//		int T = sc.nextInt();
 		
-		for(int tc = 1; tc <= T; tc++) {
+		for(int tc = 1; tc <= 1; tc++) {
 			int N = sc.nextInt(); //지형 면적
 			int X = sc.nextInt(); //활주로 길이
 			
@@ -106,7 +106,7 @@ public class Solution {
 					roadCnt++;
 				}
 			}
-			System.out.println("#"+tc+" "+roadCnt);
+			System.out.println(roadCnt);
 		}
 
 	}
