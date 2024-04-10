@@ -1,432 +1,91 @@
 package BAEK_14891_톱니바퀴_12w;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static class Node{
-		int value, location;
+	static int gear[][];
+	static int d[]; //기어의 회전 정보를 담고있음
+	static int n,m;
 
-		public Node(int value, int location) {
-			super();
-			this.value = value;
-			this.location = location;
-		}
-		
-		
-	}
-	static Node[] arr1 = new Node[8];
-	static Node[] arr2 = new Node[8];
-	static Node[] arr3 = new Node[8];
-	static Node[] arr4 = new Node[8];
-	static boolean oneTwo, twoThree, threeFour;
 	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));		
+		StringTokenizer st;
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		gear = new int[4][8];
 		
-		//0번 12시 2번 3시 4번 6시 6번 9시
-		//N극 0 S극 1
-		//시계방향 1 반시계 -1
-		
-	    arr1 = new Node[8];
-	    char[] a1 = new char[8];
-		arr2 = new Node[8];
-		char[] a2 = new char[8];
-		arr3 = new Node[8];
-		char[] a3 = new char[8];
-		arr4 = new Node[8];
-		char[] a4 = new char[8];
-		
-		for(int i = 0; i<4; i++) {
-			String str = br.readLine();
-			StringTokenizer st = new StringTokenizer(str);
-			if(i == 0) {
-				a1 = str.toCharArray();
-			}else if(i == 1) {
-				a2 = str.toCharArray();
-			}else if(i == 2) {
-				a3 = str.toCharArray();
-			}else {
-				a4 = str.toCharArray();
-			}
-			
-		}
-		
-		for(int i = 0; i<8; i++) {
-			int num = Integer.parseInt(a1[i]+"");
-			arr1[i] = new Node(num, i);
-			int num2 = Integer.parseInt(a2[i]+"");
-			arr2[i] = new Node(num2, i);
-			int num3 = Integer.parseInt(a3[i]+"");
-			arr3[i] = new Node(num3, i);
-			int num4 = Integer.parseInt(a4[i]+"");
-			arr4[i] = new Node(num4, i);
-		}
-		int N = Integer.parseInt(br.readLine());
-		
-		for(int i = 0; i<N; i++) {
-			String str = br.readLine();
-			StringTokenizer st = new StringTokenizer(str);
-			
-			while(st.hasMoreTokens()) {
-				int location = Integer.parseInt(st.nextToken());
-				int direction = Integer.parseInt(st.nextToken());
-				
-				move(location, direction);
+		for(int i=0; i<4 ;i++) {
+			String s = br.readLine();
+			for(int j=0; j<8; j++) {
+				gear[i][j] = s.charAt(j) - '0';
 			}
 		}
-		System.out.println();
+		
+		int k = Integer.parseInt(br.readLine());
+		
+		while(k-->0) {
+			st = new StringTokenizer(br.readLine());
+			//배열에 담긴 gear는 1부터 시작이아닌 0부터라 -1을 해줌
+			int gearN = Integer.parseInt(st.nextToken()) - 1;
+			int turn = Integer.parseInt(st.nextToken());
+			
+			//톱니의 회전방향 정보를 담음
+			d = new int[4]; 
+			
+			d[gearN] = turn; 
+			checkDir(gearN);
+			gearTurn();	
+		}
+		
+		int ans =0;
+		if(gear[0][0] == 1) ans+=1;
+		if(gear[1][0] == 1) ans+=2;
+		if(gear[2][0] == 1) ans+=4;
+		if(gear[3][0] == 1) ans+=8;
+		System.out.println(ans);
 	}
 
-	private static void move(int location, int direction) {
-		if(arr1[2].value == arr2[6].value) {
-			oneTwo = true;
-		}else {
-			oneTwo = false;
-		}
-		if(arr2[2].value == arr3[6].value) {
-			twoThree = true;
-		}else {
-			twoThree = false;
-		}
-		if(arr3[2].value == arr4[6].value) {
-			threeFour = true;
-		}else {
-			threeFour = false;
-		}
-		
-		if(location == 1) {
-			if(direction == 1) {
-				for(int i = 0; i<8; i++) {
-					if(arr1[i].location == 7) {
-						arr1[i].location = 0;
-					}else {
-						arr1[i].location++;
-					}
-				}
+	static void checkDir(int gearN){
+		//좌측 톱니 회전 방향 검사
+		for(int i=gearN-1; i>=0; i--) {
+			if(gear[i][2] != gear[i+1][6]) {
+				d[i] = -d[i+1];
 			}else {
-				for(int i = 0; i<8; i++) {
-					if(arr1[i].location == 0) {
-						arr1[i].location = 7;
-					}else {
-						arr1[i].location--;
-					}
-				}
-			}
-			if(oneTwo) {
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr2[i].location == 7) {
-							arr2[i].location = 0;
-						}else {
-							arr2[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr2[i].location == 0) {
-							arr2[i].location = 7;
-						}else {
-							arr2[i].location--;
-						}
-					}
-				}
-				if(twoThree) {
-					
-				}else {
-					if(direction == 1) {
-						for(int i = 0; i<8; i++) {
-							if(arr3[i].location == 7) {
-								arr3[i].location = 0;
-							}else {
-								arr3[i].location++;
-							}
-						}
-					}else {
-						for(int i = 0; i<8; i++) {
-							if(arr3[i].location == 0) {
-								arr3[i].location = 7;
-							}else {
-								arr3[i].location--;
-							}
-						}
-					}
-					if(threeFour) {
-						
-					}else {
-						if(-direction == 1) {
-							for(int i = 0; i<8; i++) {
-								if(arr4[i].location == 7) {
-									arr4[i].location = 0;
-								}else {
-									arr4[i].location++;
-								}
-							}
-						}else {
-							for(int i = 0; i<8; i++) {
-								if(arr4[i].location == 0) {
-									arr4[i].location = 7;
-								}else {
-									arr4[i].location--;
-								}
-							}
-						}
-					}
-				}
-			}
-		}else if(location == 2) {
-			if(direction == 1) {
-				for(int i = 0; i<8; i++) {
-					if(arr2[i].location == 7) {
-						arr2[i].location = 0;
-					}else {
-						arr2[i].location++;
-					}
-				}
-			}else {
-				for(int i = 0; i<8; i++) {
-					if(arr2[i].location == 0) {
-						arr2[i].location = 7;
-					}else {
-						arr2[i].location--;
-					}
-				}
-			}
-			if(oneTwo) {
-				
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr1[i].location == 7) {
-							arr1[i].location = 0;
-						}else {
-							arr1[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr1[i].location == 0) {
-							arr1[i].location = 7;
-						}else {
-							arr1[i].location--;
-						}
-					}
-				}
-			}
-			if(twoThree) {
-				
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr3[i].location == 7) {
-							arr3[i].location = 0;
-						}else {
-							arr3[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr3[i].location == 0) {
-							arr3[i].location = 7;
-						}else {
-							arr3[i].location--;
-						}
-					}
-				}
-				if(threeFour) {
-					
-				}else {
-					if(direction == 1) {
-						for(int i = 0; i<8; i++) {
-							if(arr4[i].location == 7) {
-								arr4[i].location = 0;
-							}else {
-								arr4[i].location++;
-							}
-						}
-					}else {
-						for(int i = 0; i<8; i++) {
-							if(arr4[i].location == 0) {
-								arr4[i].location = 7;
-							}else {
-								arr4[i].location--;
-							}
-						}
-					}
-				}
-			}
-		}else if(location == 3) {
-			if(direction == 1) {
-				for(int i = 0; i<8; i++) {
-					if(arr3[i].location == 7) {
-						arr3[i].location = 0;
-					}else {
-						arr3[i].location++;
-					}
-				}
-			}else {
-				for(int i = 0; i<8; i++) {
-					if(arr3[i].location == 0) {
-						arr3[i].location = 7;
-					}else {
-						arr3[i].location--;
-					}
-				}
-			}
-			if(twoThree) {
-				
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr2[i].location == 7) {
-							arr2[i].location = 0;
-						}else {
-							arr2[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr2[i].location == 0) {
-							arr2[i].location = 7;
-						}else {
-							arr2[i].location--;
-						}
-					}
-				}
-				if(oneTwo) {
-					
-				}else {
-					if(direction == 1) {
-						for(int i = 0; i<8; i++) {
-							if(arr1[i].location == 7) {
-								arr1[i].location = 0;
-							}else {
-								arr1[i].location++;
-							}
-						}
-					}else {
-						for(int i = 0; i<8; i++) {
-							if(arr1[i].location == 0) {
-								arr1[i].location = 7;
-							}else {
-								arr1[i].location--;
-							}
-						}
-					}
-				}
-			}
-			if(threeFour) {
-				
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr4[i].location == 7) {
-							arr4[i].location = 0;
-						}else {
-							arr4[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr4[i].location == 0) {
-							arr4[i].location = 7;
-						}else {
-							arr4[i].location--;
-						}
-					}
-				}
-			}
-		}else {
-			if(direction == 1) {
-				for(int i = 0; i<8; i++) {
-					if(arr4[i].location == 7) {
-						arr4[i].location = 0;
-					}else {
-						arr4[i].location++;
-					}
-				}
-			}else {
-				for(int i = 0; i<8; i++) {
-					if(arr4[i].location == 0) {
-						arr4[i].location = 7;
-					}else {
-						arr4[i].location--;
-					}
-				}
-			}
-			if(threeFour) {
-
-			}else {
-				if(-direction == 1) {
-					for(int i = 0; i<8; i++) {
-						if(arr3[i].location == 7) {
-							arr3[i].location = 0;
-						}else {
-							arr3[i].location++;
-						}
-					}
-				}else {
-					for(int i = 0; i<8; i++) {
-						if(arr3[i].location == 0) {
-							arr3[i].location = 7;
-						}else {
-							arr3[i].location--;
-						}
-					}
-				}
-				if(twoThree) {
-					
-				}else {
-					if(direction == 1) {
-						for(int i = 0; i<8; i++) {
-							if(arr2[i].location == 7) {
-								arr2[i].location = 0;
-							}else {
-								arr2[i].location++;
-							}
-						}
-					}else {
-						for(int i = 0; i<8; i++) {
-							if(arr2[i].location == 0) {
-								arr2[i].location = 7;
-							}else {
-								arr2[i].location--;
-							}
-						}
-					}
-					if(oneTwo) {
-						
-					}else {
-						if(-direction == 1) {
-							for(int i = 0; i<8; i++) {
-								if(arr1[i].location == 7) {
-									arr1[i].location = 0;
-								}else {
-									arr1[i].location++;
-								}
-							}
-						}else {
-							for(int i = 0; i<8; i++) {
-								if(arr1[i].location == 0) {
-									arr1[i].location = 7;
-								}else {
-									arr1[i].location--;
-								}
-							}
-						}
-					}
-				}
+				//회전을 하지않으면 다음 톱니도 회전을 하지 않게 된다.  
+				break;
 			}
 		}
-		
+		//우측 톱니 회전 방향 검사
+		for(int i=gearN+1; i<4; i++) {
+			if(gear[i][6] != gear[i-1][2]) {
+				d[i] = -d[i-1];
+			}else {
+				//회전을 하지않으면 다음 톱니도 회전을 하지 않게 된다.  
+				break;
+			}
+		}	
 	}
-
-
-
+	
+	static void gearTurn() {
+		int temp = 0;
+		
+		for(int i=0; i<4; i++) { //모든 톱니에 대해서
+			//시계방향 회전
+			if(d[i] == 1) {
+				temp = gear[i][7];
+				for(int j=7; j>0; j--) {
+					gear[i][j] = gear[i][j-1];
+				}
+				gear[i][0] = temp;
+			}
+			//반시계방향회전
+			if(d[i] == -1) {
+				temp = gear[i][0];
+				for(int j=0; j<7; j++) {
+					gear[i][j] = gear[i][j+1];
+				}
+				gear[i][7] = temp;
+			}
+		}
+	}
 }
