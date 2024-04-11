@@ -1,3 +1,5 @@
+package BAEK_15686_치킨배달_12w;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
