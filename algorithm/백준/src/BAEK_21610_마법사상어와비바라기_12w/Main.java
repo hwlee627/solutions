@@ -6,124 +6,158 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-	static int N, M;
-	static int[][] arr;
-	static int[] dr, dc, dr2, dc2;
-	static boolean[][] visited;
-	static List<Cloud> list;
-	static class Cloud{
-		int r, c, dir;
+	static class Point{
+		int r, c;
 
-		public Cloud(int r, int c, int dir) {
+		public Point(int r, int c) {
+			super();
 			this.r = r;
 			this.c = c;
-			this.dir = dir;
 		}
-		
 		
 	}
+	static int[][] map;
+	static boolean[][] cloud;
+	static List<Point> cloudList;
+	static int[] dr, dc, dr2, dc2;
+	static int N;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		
-		N = sc.nextInt(); //배열 크기
-		M = sc.nextInt(); //이동 횟수
-		
-		
-		arr = new int[N][N];
-		
-		for(int r = 0; r<N; r++) {
-			for(int c = 0; c<N; c++) {
-				arr[r][c] = sc.nextInt();
-				
-			}
-		}
-		list = new ArrayList<Cloud>();
-		for(int r = N-1; r>N-3; r--) {
-			for(int c = 0; c<=1; c++) {
-				Cloud cl = new Cloud(r,c,0);
-				list.add(cl);
-			}
-		}
-		//direction 용
-		dr = new int[] {0,-1,-1,-1,0,1,1,1};
-		dc = new int[] {-1,-1,0,1,1,1,0,-1};
-		
-		
-		//물복사버그 대각선 탐색
+		N = sc.nextInt();
+		map = new int[N][N];
+		cloud = new boolean[N][N];
+		int moveCnt = sc.nextInt();
+		//구름 이동 델타배열
+		dr = new int[] {0, -1, -1, -1, 0, 1, 1, 1}; //0 ~ 7
+		dc = new int[] {-1, -1, 0, 1, 1, 1, 0, -1};
+		//구름 이동 완료 후 대각선 탐색 델타배열
 		dr2 = new int[] {-1, -1, 1, 1};
 		dc2 = new int[] {-1, 1, -1, 1};
 		
-		for(int i = 0; i<M; i++) {
-			int direction = sc.nextInt()-1;
-			int depth = sc.nextInt();
-			visited = new boolean[N][N];
-			rain(direction, depth);
-			copyWater();
-			makeCloud();
-			for(int j = 0; j<N; j++) {
-				System.out.println(Arrays.toString(arr[j]));
-			}
-			System.out.println();
-		}
-
-	}
-
-	private static void makeCloud() {
-		list = new ArrayList<Cloud>();
+		
 		for(int r = 0; r<N; r++) {
 			for(int c = 0; c<N; c++) {
-				if(arr[r][c] >= 2 && !visited[r][c]) {
-					arr[r][c] -= 2;
-					System.out.println("r : " + r + " c : "+ c);
-					Cloud cl = new Cloud(r, c, 0);
-					list.add(cl);
-				}
+				map[r][c] = sc.nextInt();
 			}
 		}
-		
-	}
-	private static void copyWater() {
-		for(Cloud c : list) {
-			int cnt = 0;
-			for(int d = 0; d<4; d++) {
-				int nr = dr2[d] + c.r;
-				int nc = dc2[d] + c.c;
-				if(nr >= 0 && nr<N && nc>=0 && nc<N && arr[nr][nc] != 0) {
-					cnt++;
-				}
+		//맨 처음 구름
+		//(N,1) (N,2) (N-1, 1) ( N-1,2)
+		cloud[N-1][0] = cloud[N-1][1] = cloud[N-2][0] = cloud[N-2][1] = true;
+		cloudList = new ArrayList<Main.Point>();
+		for(int i = 0; i<moveCnt; i++) {
+			int direction = sc.nextInt() -1;
+			int depth = sc.nextInt();
+			if(depth > N) {
+				depth = depth % N;
 			}
-			arr[c.r][c.c] += cnt;
-		}
-		
-	}
-	private static void rain(int direction, int depth) {
-		for(Cloud c : list) {
-			c.dir = direction;
-		}
-		//구름 이동
-		for(Cloud c : list) {
-			int nr = dr[direction]*depth + c.r;
-			int nc = dc[direction]*depth + c.c;
 			
-			if(nr >= 0 && nr<N && nc>= 0 && nc<N) {
-				c.r = nr;
-				c.c = nc;
-			}else if (nr>=N) {
-				c.r = Math.abs(nr%N);
-			}else if (nr<0) {
-				c.r = N - Math.abs(nr%N);
-			}else if(nc>=N) {
-				c.c = Math.abs(nc%N);
-			}else if(nc<0) {
-				c.c = N - Math.abs(nc%N);
+			callRain(direction, depth);
+		}
+		
+		int ans = 0;
+		for(int r = 0; r<N; r++) {
+			for(int c = 0; c<N; c++) {
+				ans += map[r][c];
 			}
 		}
-		//비 내리기
-		for(Cloud c : list) {
-			System.out.println("mr : " + c.r + " mc : " + c.c);
-			visited[c.r][c.c] = true;
-			arr[c.r][c.c]+= 1;
-		}
+		System.out.println(ans);
 	}
+	private static void callRain(int direction, int depth) {
+		//구름 좌표 받기
+		for(int r = 0; r<N; r++) {
+			for(int c = 0; c<N; c++) {
+				if(cloud[r][c]) {
+					Point p = new Point(r,c);
+					cloudList.add(p);
+				}
+			}
+		}
+		
+		//임시 구름 리스트 추가
+		List<Point> tmpList = new ArrayList<Main.Point>();
+		//구름의 방향과 칸수 받아서 구름 이동
+		for(Point p : cloudList) {
+			//탐색 시작했으니 기존에 담아놨던 구름 boolean 배열 각각 초기화 해주기
+			cloud[p.r][p.c] = false;
+			p.r = p.r + dr[direction] * depth;
+			p.c = p.c + dc[direction] * depth;
+			
+			if(p.r >= N) {
+				p.r = p.r -N;
+			}else if(p.r < 0) {
+				p.r = p.r + N;
+			}
+			if(p.c >= N) {
+				p.c = p.c -N;
+			}else if(p.c < 0) {
+				p.c = p.c + N;
+			}
+			tmpList.add(new Point(p.r, p.c));
+			//이동 완료 하면 비 내리기
+			map[p.r][p.c]++;
+			
+		}
+		
+		//이동완료한 구름 좌표가 있음
+		for(Point p : tmpList) {
+			//대각 탐색용 카운트
+			int count = 0;
+			//대각선 탐색 후 물 있는 개수 세서 물 추가
+			for(int i = 0; i<4; i++) {
+				int nr = dr2[i]+p.r;
+				int nc = dc2[i]+p.c;
+				//경계조건
+				if(nr>=0 && nr<N && nc>=0 && nc<N) { 
+					if(map[nr][nc] != 0) {
+						//물이 있다면 카운트 세기
+						count++;
+					}
+				}
+			}
+			//대각 탐색 후 물 있던 칸 수 만큼 증가시키기
+//			System.out.println("count : " + count);
+			map[p.r][p.c] += count;
+			cloud[p.r][p.c] = true;
+		}
+//		for(int r = 0; r<N; r++) {
+//			System.out.println(Arrays.toString(map[r]));
+//		}
+//		System.out.println();
+		//초기화 하고 (어차피 밑에서는 cloud boolean 배열의 T/F로 기존 구름이 있던 곳을 특정하기 때문
+		 cloudList = new ArrayList<Main.Point>();
+		//새로운 구름 찾기
+		//구름이 있었던 칸 제외하고 나머지 칸 중 물의 양이 2 이상인 곳
+		//생기면 2 줄어듬
+//		 for(int r = 0; r<N; r++) {
+//			 System.out.println(Arrays.toString(cloud[r]));
+//		 }
+		for(int r = 0; r<N; r++) {
+			for(int c = 0; c<N; c++) {
+				if(!cloud[r][c] && map[r][c] >= 2) {
+					map[r][c] -= 2;
+					cloudList.add(new Point(r, c));
+				}
+			}
+		}
+//		for(int r = 0; r<N; r++) {
+//			System.out.println(Arrays.toString(map[r]));
+//		}
+		//새로운 구름을 담았다면, cloud boolean 배열 설정
+		for(Point p : tmpList) {
+			cloud[p.r][p.c] = false;
+//			System.out.println("tmpList : "+p.r+" "+p.c);
+		}
+		for(Point p : cloudList) {
+			cloud[p.r][p.c] = true;
+//			System.out.println("cloudList : "+p.r + " "+p.c);
+		}
+//		for(int r = 0; r<N; r++) {
+//			System.out.println(Arrays.toString(cloud[r]));
+//		}
+		cloudList = new ArrayList<Main.Point>();
+	}
+
+	
+	
 
 }
