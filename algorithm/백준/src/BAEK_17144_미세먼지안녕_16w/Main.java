@@ -46,6 +46,7 @@ public class Main {
 				map[r][c] = new Dirt(sc.nextInt(), 0);
 				if(map[r][c].v == -1) {
 					cleaner.add(r);
+//					System.out.println("r : "+r);
 				}
 			}
 		}
@@ -97,6 +98,7 @@ public class Main {
 					map[r][c].p = 0;
 				}
 			}
+
 //			for(int r = 0; r<R; r++) {
 //			for(int c = 0; c<C; c++) {
 //				System.out.print(map[r][c].v+" ");	
@@ -107,27 +109,81 @@ public class Main {
 			//옮겨주기
 			//시작점, 꼭지점
 			//꼭지점 값부터 옮기기 
-			Dirt[][] tmpMap = new Dirt[R][C];
+			int[][] tmpMap = new int[R][C];
 			for(int r = 0; r<R; r++) {
 				for(int c = 0; c<C; c++) {
-					tmpMap[r][c] = map[r][c];
+					tmpMap[r][c] = map[r][c].v;
 				}
 			}
-			for(int c = 2; c<C; c++) {
-				map[cleaner.get(0)][c].v = tmpMap[cleaner.get(0)][c-1].v;
-			}
+//			for(int r = 0; r<R; r++) {
+//				for(int c = 0; c<C; c++) {
+//					System.out.print(tmpMap[r][c]+" ");
+//				}
+//				System.out.println();
+//
+//			}
+//			System.out.println();
+			//위
+			//시계반대방향
 			map[cleaner.get(0)][1].v = 0;
+			for(int c = 2; c<C; c++) {
+//				System.out.println(c-1);
+				int value = tmpMap[cleaner.get(0)][c-1];
+				map[cleaner.get(0)][c].v = value;
+//				System.out.println(tmpMap[cleaner.get(0)][c-1].v);
+			}
+			
 			
 			for(int r = cleaner.get(0)-1; r>=0; r--) {
-				map[r][C-1].v = tmpMap[r+1][C-1].v;
+				map[r][C-1].v = tmpMap[r+1][C-1];
+			}
+			for(int c = C-2; c>=0; c--) {
+				map[0][c].v = tmpMap[0][c+1];
+			}
+			for(int r = 1; r<cleaner.get(0); r++) {
+				map[r][0].v = tmpMap[r-1][0];
+			}
+			
+			//아래
+			//시계방향
+			map[cleaner.get(1)][1].v = 0;
+			for(int c = 2; c<C; c++) {
+				map[cleaner.get(1)][c].v = tmpMap[cleaner.get(1)][c-1];
 			}
 			
 			
-			
-			
+			for(int r = cleaner.get(1)+1; r<R; r++) {
+				map[r][C-1].v = tmpMap[r-1][C-1];
+			}
+			for(int c = C-2; c>=0; c--) {
+				map[R-1][c].v = tmpMap[R-1][c+1];
+			}
+			for(int r = R-2; r>cleaner.get(1); r--) {
+//				System.out.println("r : "+r);
+				map[r][0].v = tmpMap[r+1][0];
+			}
+//			System.out.println();
+//			for(int r = 0; r<R; r++) {
+//			for(int c = 0; c<C; c++) {
+//				System.out.print(map[r][c].v+" ");	
+//			}
+//			System.out.println();
+//			
+//		}
 			time++;
+		
+	}
+		int sum = 0;
+		for(int r = 0; r<R; r++) {
+			for(int c = 0; c<C; c++) {
+				if(map[r][c].v != -1) {
+					sum += map[r][c].v;
+				}
+
+			}
 		}
 		
+		System.out.println(sum);
 	}
 
 }
